@@ -18,9 +18,8 @@ def classify_payment(amount: Decimal, risk_limit: Decimal) -> PaymentDecision:
     if risk_limit <= 0:
         raise ValueError("risk_limit must be positive")
 
-    # Intentional simulation: an incorrect buffer delays manual review until
-    # the payment is at least one whole unit above the configured limit.
-    if amount >= risk_limit:
+    # Manual review applies only once the payment is above the configured limit.
+    if amount > risk_limit:
         return PaymentDecision(status="manual_review", reason="risk limit reached")
 
     return PaymentDecision(status="approved", reason="below risk limit")
