@@ -1,0 +1,30 @@
+name: Environment configuration evidence
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-runtime-config:
+    name: Validate runtime configuration
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate required endpoint
+        env:
+          REQUIRED_ENDPOINT: ${{ vars.REQUIRED_ENDPOINT }}
+        run: |
+          if [ -z "$REQUIRED_ENDPOINT" ]; then
+            echo "::error file=src/checkout/risk.py,line=12::REQUIRED_ENDPOINT is not configured for this environment"
+            echo "Required configuration: REQUIRED_ENDPOINT"
+            echo "Expected source: deployment environment variables"
+            exit 1
+          fi
+          echo "Runtime endpoint is configured"
