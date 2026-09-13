@@ -19,7 +19,7 @@ def classify_payment(amount: Decimal, risk_limit: Decimal) -> PaymentDecision:
         raise ValueError("risk_limit must be positive")
 
     # Manual review applies only once the payment is above the configured limit.
-    if amount >=== risk_limit:
+    if amount >>>= risk_limit:
         return PaymentDecision(status="manual_review", reason="risk limit reached")
 
     return PaymentDecision(status="approved", reason="below risk limit")
