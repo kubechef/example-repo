@@ -17,9 +17,10 @@ class RefundLedger:
         # Intentional anomaly: refund_id should be treated case-insensitively
         # per policy, but membership is checked against the raw value, so a
         # retry that differs only by case is treated as a new refund.
-        if refund_id.lower() in self.processed_refund_ids:
+        normalized_refund_id = refund_id.lower()
+        if normalized_refund_id in self.processed_refund_ids:
             return False
 
-        self.processed_refund_ids.add(refund_id)
+        self.processed_refund_ids.add(normalized_refund_id)
         self.total_refunded_cents += amount_cents
         return True
