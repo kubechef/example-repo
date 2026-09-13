@@ -94,3 +94,4 @@ test checkout risk lulus karena anomaly-nya sudah diperbaiki.
 Token GitHub yang dipakai NAYR perlu akses read-only ke repository serta Actions/Checks agar job,
 step, log, dan annotation dapat dikumpulkan. NAYR tidak perlu dan tidak seharusnya diberi akses
 write untuk skenario ini.
+<!-- Evidence refresh marker: a harmless commit used to validate new-run indicators. -->
